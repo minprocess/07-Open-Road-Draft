@@ -1,71 +1,78 @@
-var CLIENT_ID = "3HOWAEZDHCEUXJXWUAM5FWOZRF1QLJUFQOLPFXGD4YJMWTG0";
-var CLIENT_SECRET = "NJVMVP2OA1HFOJNDZWZBBR45CB0ZHVL2EK4ECHLLPVKBG4XN";
-var FOURSQUARE_SEARCH_URL = "https://api.foursquare.com/v2/venues/explore?client_id="+CLIENT_ID+"&client_secret="+CLIENT_SECRET+"&v=YYYYMMDD";
-
-$.ajax({
-    dataType: "json",
-    url: "https://api.foursquare.com/v2/venues/explore?client_id="+CLIENT_ID+"&client_secret="+CLIENT_SECRET+"&v=20180323&limit=1&ll=40.7243,-74.0018&query=sushi",
-    data: {},
-    success: function( data ) {
-      // Code for handling API response
-      console.log("success login?");
-      console.log(data);
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-        console.log("error ajax");
-      // Code for handling errors
-    }
-  });
-
-  function getGoogleMapData() {
-
-  }
-
-
-function getFourSquareData() {
-    $('.category-button').click(function () {
-        let city = $('.search-query').val();
-        let category = $(this).text();
-        console.log("city: ", city);
-        console.log("query", dat.query);
-        console.log("section", data.category)
-        $.ajax(FOURSQUARE_SEARCH_URL, {
-            data: {
-                near: city,
-                venuePhotos: 1,
-                limit: 9,
-                query: 'recommended',
-                section: category,
-            },
-            dataType: 'json',
-            type: 'GET',
-            success: function (data) {
-                try {
-                    console.log("search success data");
-                    console.log(data);
-                    let results = data.response.groups[0].items.map(function (item, index) {
-                        return displayResults(item);
-                    });
-                    $('#foursquare-results').html(results);
-                    scrollPageTo('#foursquare-results', 15);
-                } catch (e) {
-                    $('#foursquare-results').html("<div class='result'><p>Sorry! No Results Found.</p></div>");
-                }
-            },
-            error: function () {
-                $('#foursquare-results').html("<div class='result'><p>Sorry! No Results Found.</p></div>");
-            }
-        });
+// var FOURSQUARE_SEARCH_URL = "https://api.foursquare.com/v2/venues/explore?client_id=" + CLIENT_ID + "&client_secret=" + CLIENT_SECRET + "&v=YYYYMMDD";
+var WEATHER_SEARCH_URL = "https://api.openweathermap.org/data/2.5/weather?id=524901&APPID=d86b9843fdc4941e520f985922146256";
+// var CLIENT_ID = "3HOWAEZDHCEUXJXWUAM5FWOZRF1QLJUFQOLPFXGD4YJMWTG0";
+// var CLIENT_SECRET = "NJVMVP2OA1HFOJNDZWZBBR45CB0ZHVL2EK4ECHLLPVKBG4XN";
+​
+​
+​
+let map;
+​
+//autocomplete location name in form
+function getWeatherData() {
+    let city = $('.search-query').val();
+    $.ajax(WEATHER_SEARCH_URL, {
+        data: {
+            units: 'imperial',
+            q: city
+        },
+        dataType: 'jsonp',
+        type: 'GET',
+        success: function (data) {
+            let widget = displayWeather(data);
+            $('#weather-display').html(widget);
+            scrollPageTo('#weather-display', 15);
+        }
     });
 }
-
-
+​
+function displayWeather(data) {
+    return `
+    <div class="weather-results">
+        <h1><strong>Current Weather for ${data.name}</strong></h1>
+        <img src="https://openweathermap.org/img/w/${data.weather[0].icon}.png">
+        <p style="font-size:30px; margin-top:10px;">${data.weather[0].main}</p>
+        <p style="color:white;">Temperature:</p><p> ${data.main.temp} &#8457; / ${(((data.main.temp) - 32) * (5 / 9)).toFixed(2)} &#8451;</p>
+        <p style="color:white;">Humidity:</p><p> ${data.main.humidity} &#37;</p>
+    </div>
+`;
+}
+​
+//retrieve data from FourSquare API
+// function getFourSquareData() {
+//     $('.category-button').click(function () {
+//         let city = $('.search-query').val();
+//         let category = $(this).text();
+//         $.ajax(FOURSQUARE_SEARCH_URL, {
+//             data: {
+//                 near: city,
+//                 venuePhotos: 1,
+//                 limit: 9,
+//                 query: 'recommended',
+//                 section: category,
+//             },
+//             dataType: 'json',
+//             type: 'GET',
+//             success: function (data) {
+//                 try {
+//                     let results = data.response.groups[0].items.map(function (item, index) {
+//                         return displayResults(item);
+//                     });
+//                     $('#foursquare-results').html(results);
+//                     scrollPageTo('#foursquare-results', 15);
+//                 } catch (e) {
+//                     $('#foursquare-results').html("<div class='result'><p>Sorry! No Results Found.</p></div>");
+//                 }
+//             },
+//             error: function () {
+//                 $('#foursquare-results').html("<div class='result'><p>Sorry! No Results Found.</p></div>");
+//             }
+//         });
+//     });
+// }
+​
 function displayResults(result) {
-    console.result("result");
     return `
         <div class="result col-3">
-            <div class="result-image" style="background-image: url(https://igx.4sqi.net/img/general/width960${result.venue.photos.groups[0].items[0].suffix})" ;>
-            </div>
             <div class="result-description">
                 <h2 class="result-name"><a href="${result.venue.url}" target="_blank">${result.venue.name}</a></h2>
                 <span class="icon">
@@ -81,44 +88,14 @@ function displayResults(result) {
         </div>
 `;
 }
-
-
+​
+​
 function enterLocation() {
-    $('.category-button').click(function () {
-        $('button').removeClass("selected");
-        $(this).addClass("selected");
-    });
-
-    $('.search-form').submit(function (event) {
-        event.preventDefault();
-        $('.navigation').removeClass("hide");
-        $('#foursquare-results').html("");
-        // WTP start
-        makeMap();
-        //covidCases();
-        // WTP end
-        getFourSquareData();
-        $('button').removeClass("selected");
-    });
+​
+​
+​
 }
-
-function makeMap() {
-    $.ajax({
-        // "https://maps.googleapis.com/maps/api/js?key=AIzaSyC24FpAeO5r6k8-Gras4giICU2KBBli1ZM&callback=initMap&libraries=&v=weekly"
-        // url : 'https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + $("#origin").val() + '&destinations=' + $("#destinations").val() +'&mode=driving&key=AIzaSyASanevdiCI4t1h8LMf5FgWHMD52K3QeB0',
-        url: "https://maps.googleapis.com/maps/api/js",
-        type: "GET",
-        data: {
-          callback: initMap(),
-          key: "AIzaSyC24FpAeO5r6k8-Gras4giICU2KBBli1ZM",
-          libraries: ""
-        },
-        success: function(data) {
-          console.log(data);
-        }
-      });
-}
-
+​
 //autocomplete location name in form
 function activatePlacesSearch() {
     let options = {
@@ -126,48 +103,90 @@ function activatePlacesSearch() {
     };
     let input = document.getElementById('search-term');
     let autocomplete = new google.maps.places.Autocomplete(input, options);
-    console.log("autocomplete ", autocomplete);
 }
-
-function covidCases( ) {
-    // https://covid-api.mmediagroup.fr/v1/cases?country=France
-    let city = $('.search-query').val();
-    console.log("covidcases: ", city);
-    $.ajax({
-    type: 'GET',
-    url: 'https://covid-api.mmediagroup.fr/v1/cases?city=Paris',
-    success: function(data) {
-        console.log(data);
-    var cases = "Confirmed covid-19 cases France: " + data.All.confirmed + " Quelle horreur!";
-    var covidEl = document.querySelector("#covid");
-    covidEl.textContent = cases;
-    }
+​
+$('#city-search').click(function (event) {
+    console.log("search test")
+    event.preventDefault();
+    initMap();
+    $('.navigation').removeClass("hide");
+    $('#weather-display').html("");
+    // $('#foursquare-results').html("");
+    getWeatherData();
+    //getFourSquareData();
+    $('button').removeClass("selected");
+​
+    console.log("TEST")
+    $('.category-button').click(function () {
+        $('button').removeClass("selected");
+        $(this).addClass("selected");
     });
+​
+    getLatLng()
+});
+​
+​
+function getLatLng() {
+​
+    let location = $('.search-query').val()
+    let geocoder = new google.maps.Geocoder()
+    geocoder.geocode({ "address": location }, function (results, status) {
+        console.log("GEOCODER RESULTS")
+        console.log(status)
+        console.log(results)
+        console.log(typeof results[0].geometry.location.lat())
+        let lat = results[0].geometry.location.lat()
+        let lng = results[0].geometry.location.lng()
+        map.setCenter({ lat: lat, lng: lng })
+        map.setZoom(15)
+        getCovidData(results[0].formatted_address)
+    })
+​
 }
-
-    // Initialize and add the map
-    function initMap() {
+​
+// Initialize and add the map
+function initMap() {
     // The location of Uluru
     const uluru = { lat: -25.344, lng: 131.036 };
     // The map, centered at Uluru
-    const map = new google.maps.Map(document.getElementById("map"), {
+    map = new google.maps.Map(document.getElementById("map"), {
         zoom: 4,
         center: uluru,
     });
+    console.log("initmap map");
+    console.log(map);
     // The marker, positioned at Uluru
     const marker = new google.maps.Marker({
         position: uluru,
         map: map,
     });
-    }
-
-//covidCases();
-
-$(enterLocation);
-
-/*
-    <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC24FpAeO5r6k8-Gras4giICU2KBBli1ZM&callback=initMap&libraries=&v=weekly"
-    async
-  ></script>
-*/
+}   // end of function initMap
+​
+​
+function getCovidData(formattedAddress) {
+    let splitArray = formattedAddress.split(',')   // ['Harrisburg', ' PA', ' USA']
+    let splitStateCode = splitArray[1].trim()
+    console.log(`Getting Covid Data For : ${splitStateCode}`)
+    $.ajax(`http://api.covidtracking.com/v1/states/${splitStateCode}/current.json`,
+        {
+            dataType: 'json',
+            type: 'GET',
+            success: function (data) {
+                console.log(data.positiveIncrease)
+                $('#covid-data-message').text(`The COVID rating for ${splitArray[0]}, ${splitArray[1]}`)
+                if (data.positiveIncrease < 500) {
+                    $('#covid-rating-circle').addClass('crc-green')
+                } 
+                else if (data.positiveIncrease < 1000) {                    
+                    $('#covid-rating-circle').addClass('crc-yellow')
+                }
+                else {
+                    $('#covid-rating-circle').addClass('crc-red')
+                }
+            },
+            error: function () {
+                console.log("There was an error getting the covid data")
+            }
+        })
+​
+}

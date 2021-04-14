@@ -1,60 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-
+​
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Trip Planner</title>
+    <style>
+    </style>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
     <link href="https://foursquare.com/" target="_blank" />
-    <!--<link href="https://covid-api.mmediagroup.fr/v1" rel="stylesheet" />-->
+    <link href="http://api.covidtracking.com" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
 </head>
-
+​
 <body>
     <main role=main>
         <div class="start-display" id="start-page">
             <header class="row" role="banner">
                 <h1 class="logo">Open Road Travel Agency</h1>
-                <p class="api-info">Powered by Foursquare and Covid19 API</p>
-                <p>Plan your next trip by finding out the current Covid cases and blank in a new city!</p>
+                <p>Plan your next trip by finding  local weather and COVID cases.</p>
+                <p class="api-info">Using Google Maps and Covid API</p>
             </header>
-
+​
             <form action="#" class="search-form row" id="search-query-form">
                 <input type="text" placeholder="Enter a city" class="search-query" id="search-term" required>
-                <button type="submit" class="submit-button">Search</button>
+                <button id="city-search" type="submit" class="submit-button">Search</button>
             </form>
-            <p id="covid"></p>
+            <div class="start-display" id="start-page"></div>
+            
         </div>
-
+     
+        <section class="weather row" id="weather-display">
         </section>
         <!--HOPING FOUR SQUARE API WILL GIVE NIGHTLIFE AND SHOPS, KEEPING BUTTONS HERE FOR NOW AND CAN CHANGE WHEN NEEDED-->
-        <nav role="navigation" class="navigation hide" id="results-navigation">
+        <!-- <nav role="navigation" class="navigation hide" id="results-navigation">
             <div class="options row">
                 <button class="category-button" id="covidTracking-button">Covid19</button>
                 <button class="category-button" id="nightlife-button">NIGHTLIFE</button>
                 <button class="category-button" id="shops-button">SHOPS</button>
-            </div>
+            </div> -->
         </nav>
+​
+        <div id="covid-data" class="row">
+​
+            <div id="covid-data-message"></div>
+​
+            <div id="covid-rating-wrapper">
+​
+                <div id="covid-rating-circle"></div>
+​
+            </div>
+​
+        </div>
+​
+        <div class="map1 row" id="map"></div>
+​
         <!-- hopefully the foursquare API results will post here-->
         <section id="foursquare-results" class="row">
-            
         </section>
-        
-        <div class = "map1" id="map">
-            
-        </div>
+​
         <footer class="footer">
         </footer>
     </main>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    
+​
     <script type="text/javascript" src="script.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYwwQ-wTWZ6jI75jcsRz4if7dv30i5evo&libraries=places&callback=activatePlacesSearch"></script>
-
-
-    
-    
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3F33vDvVAnomD57XeDJrdB1DEBRu19IY&"></script>
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYwwQ-wTWZ6jI75jcsRz4if7dv30i5evo&libraries=places&callback=activatePlacesSearch"></script>
 </body>
-
+​
 </html>
