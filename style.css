@@ -95,7 +95,7 @@ form a {
 .weather-results h1 {
     font-size: 40px;
     color: black;
-    font-family: 'Megrim', sans-serif;
+    font-family: 'Merienda', cursive;
 }
 ​
 .weather-image {
@@ -110,12 +110,111 @@ form a {
     border-radius: 5px;
 }
 ​
+.col-3,
+.result {
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    background: rgba(230, 223, 223, 0.7);
+    border-radius: 5px;
+}
+​
+.result-description {
+    padding: 10px;
+    text-align: justify;
+    overflow: hidden;
+    font-size: 0.9em;
+} */
+​
+.result-description h2 {
+    font-size: 1.3em;
+    font-family: 'Mergrim', sans-serif;
+    font-weight: 700;
+    ;
+}
+​
+/***** RESPONSIVE DESIGN *****/
+​
+* {
+    box-sizing: border-box;
+}
+​
+.row {
+    max-width: 1000px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 640px) {
+    .col-3 {
+        width: 30%;
+        display: inline-block;
+        vertical-align: text-top;
+    }
+}
+
+.map1 {
+    height: 400px; /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+}
+​
+
+#covid-data {
+
+    display: flex;
+    flex-flow: column;
+    width: 400px;
+
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(230, 223, 223, 0.7);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+​}
+
+
+#covid-data-message {
+    flex: 1 1 auto;
+    background-color: white;
+    margin-bottom: 20px;
+    color: black;
+}
+
+#covid-rating-wrapper {
+​
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+}
+​
+#covid-rating-circle { 
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+}
+​
+.crc-green {
+    background-color: lime;
+}
+​
+.crc-yellow {
+    background-color: yellow;
+}
+​
+.crc-red {
+    background-color: red;
+}
+​
 ​
 /***** NAVIGATION *****/
 ​
-nav {
+/* nav {
     margin: 20px 0;
-}
+} */
 ​
 /* button.category-button {
     margin: 5px;
@@ -145,29 +244,6 @@ button.selected {
     background-position: center center;
 } */
 ​
-.col-3,
-.result {
-    margin: 10px;
-    padding: 10px;
-    width: 100%;
-    background: rgba(230, 223, 223, 0.7);
-    border-radius: 5px;
-}
-​
-.result-description {
-    padding: 10px;
-    text-align: justify;
-    overflow: hidden;
-    font-size: 0.9em;
-}
-​
-.result-description h2 {
-    font-size: 1.3em;
-    font-family: 'Mergrim', sans-serif;
-    font-weight: 700;
-    ;
-}
-​
 /* #foursquare-results span {
     display: inline-block;
     height: 32px;
@@ -179,7 +255,7 @@ button.selected {
 ​
 #foursquare-results span.icon-text {
     padding: 8px 4px 0 4px;
-} */
+}
 ​
 ​
 /***** FOOTER *****/
@@ -191,84 +267,4 @@ button.selected {
     margin-top: 20px;
     box-shadow: 0 0 10px black;
 } */
-​
-​
-/***** RESPONSIVE DESIGN *****/
-​
-* {
-    box-sizing: border-box;
-}
-​
-.row {
-    max-width: 1000px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin: 0 auto;
-}
-​
-@media screen and (min-width: 640px) {
-    .col-3 {
-        width: 30%;
-        display: inline-block;
-        vertical-align: text-top;
-    }
-}
-​
-.map1 {
-    height: 400px; /* The height is 400 pixels */
-    width: 100%;  /* The width is the width of the web page */
-}
-​
-#covid-data {
-​
-    display: flex;
-    flex-flow: column;
-​
-    width: 400px;
-​
-    align-items: center;
-    justify-content: center;
-​
-    background-color: rgba(230, 223, 223, 0.7);
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-​
-}
-​
-#covid-data-message {
-​
-    flex: 1 1 auto;
-    background-color: white;
-    margin-bottom: 20px;
-    color: black;
-​
-}
-​
-#covid-rating-wrapper {
-​
-    display: flex;
-    flex-flow: row;
-    justify-content: center;
-    align-items: center;
-}
-​
-#covid-rating-circle { 
-    height: 100px;
-    width: 100px;
-    border-radius: 50px;
-}
-​
-.crc-green {
-    background-color: lime;
-}
-​
-.crc-yellow {
-    background-color: yellow;
-}
-​
-.crc-red {
-    background-color: red;
-}
-​
 ​

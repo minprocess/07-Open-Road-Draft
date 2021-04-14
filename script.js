@@ -2,11 +2,7 @@
 var WEATHER_SEARCH_URL = "https://api.openweathermap.org/data/2.5/weather?id=524901&APPID=d86b9843fdc4941e520f985922146256";
 // var CLIENT_ID = "3HOWAEZDHCEUXJXWUAM5FWOZRF1QLJUFQOLPFXGD4YJMWTG0";
 // var CLIENT_SECRET = "NJVMVP2OA1HFOJNDZWZBBR45CB0ZHVL2EK4ECHLLPVKBG4XN";
-​
-​
-​
 let map;
-​
 //autocomplete location name in form
 function getWeatherData() {
     let city = $('.search-query').val();
@@ -20,11 +16,10 @@ function getWeatherData() {
         success: function (data) {
             let widget = displayWeather(data);
             $('#weather-display').html(widget);
-            scrollPageTo('#weather-display', 15);
+            // scrollPageTo('#weather-display', 15);
         }
     });
 }
-​
 function displayWeather(data) {
     return `
     <div class="weather-results">
@@ -36,7 +31,6 @@ function displayWeather(data) {
     </div>
 `;
 }
-​
 //retrieve data from FourSquare API
 // function getFourSquareData() {
 //     $('.category-button').click(function () {
@@ -69,7 +63,9 @@ function displayWeather(data) {
 //         });
 //     });
 // }
-​
+function EnterLocation() {
+
+}
 function displayResults(result) {
     return `
         <div class="result col-3">
@@ -88,23 +84,15 @@ function displayResults(result) {
         </div>
 `;
 }
-​
-​
-function enterLocation() {
-​
-​
-​
-}
-​
 //autocomplete location name in form
 function activatePlacesSearch() {
+    console.log("In activatePlacesSearch function");
     let options = {
         types: ['(regions)']
     };
     let input = document.getElementById('search-term');
     let autocomplete = new google.maps.places.Autocomplete(input, options);
 }
-​
 $('#city-search').click(function (event) {
     console.log("search test")
     event.preventDefault();
@@ -115,19 +103,14 @@ $('#city-search').click(function (event) {
     getWeatherData();
     //getFourSquareData();
     $('button').removeClass("selected");
-​
     console.log("TEST")
     $('.category-button').click(function () {
         $('button').removeClass("selected");
         $(this).addClass("selected");
     });
-​
     getLatLng()
 });
-​
-​
 function getLatLng() {
-​
     let location = $('.search-query').val()
     let geocoder = new google.maps.Geocoder()
     geocoder.geocode({ "address": location }, function (results, status) {
@@ -141,9 +124,7 @@ function getLatLng() {
         map.setZoom(15)
         getCovidData(results[0].formatted_address)
     })
-​
 }
-​
 // Initialize and add the map
 function initMap() {
     // The location of Uluru
@@ -161,8 +142,6 @@ function initMap() {
         map: map,
     });
 }   // end of function initMap
-​
-​
 function getCovidData(formattedAddress) {
     let splitArray = formattedAddress.split(',')   // ['Harrisburg', ' PA', ' USA']
     let splitStateCode = splitArray[1].trim()
@@ -188,5 +167,4 @@ function getCovidData(formattedAddress) {
                 console.log("There was an error getting the covid data")
             }
         })
-​
 }
