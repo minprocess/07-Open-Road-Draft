@@ -119,20 +119,6 @@ form a {
     border-radius: 5px;
 }
 ​
-.result-description {
-    padding: 10px;
-    text-align: justify;
-    overflow: hidden;
-    font-size: 0.9em;
-} */
-​
-.result-description h2 {
-    font-size: 1.3em;
-    font-family: 'Mergrim', sans-serif;
-    font-weight: 700;
-    ;
-}
-​
 /***** RESPONSIVE DESIGN *****/
 ​
 * {
@@ -156,7 +142,7 @@ form a {
 
 .map1 {
     height: 400px; /* The height is 400 pixels */
-    width: 100%;  /* The width is the width of the web page */
+    width: 400px;  /* The width is the width of the web page */
 }
 ​
 
@@ -172,10 +158,9 @@ form a {
     background-color: rgba(230, 223, 223, 0.7);
     border-radius: 5px;
     padding: 10px;
-    margin-bottom: 10px;
-​}
-
-
+    margin-bottom: 10px; 
+}
+    
 #covid-data-message {
     flex: 1 1 auto;
     background-color: white;
@@ -184,7 +169,6 @@ form a {
 }
 
 #covid-rating-wrapper {
-​
     display: flex;
     flex-flow: row;
     justify-content: center;
@@ -252,19 +236,18 @@ button.selected {
     background-color: #ccc;
     border-radius: 5px;
 }
-​
+
 #foursquare-results span.icon-text {
     padding: 8px 4px 0 4px;
 }
 ​
-​
-/***** FOOTER *****/
-​
-/* footer {
+​/*
+.footer {
     background-color: rgba(255, 255, 255, 0.7);
     height: 125px;
     padding: 20px;
     margin-top: 20px;
     box-shadow: 0 0 10px black;
-} */
-​
+}
+*/
+
